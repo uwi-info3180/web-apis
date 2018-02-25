@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Geo Location Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="page-header">Geolocation Demo</h1>
+      <p><button onclick="geoFindMe()" class="btn btn-primary"><span class="glyphicon glyphicon-map-marker"></span> Show my location</button></p>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">My Location</h3>
+        </div>
+        <div class="panel-body">
+          <div id="mylocation"></div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+      function geoFindMe() {
+        var output = document.getElementById("mylocation");
+
+        if (!navigator.geolocation){
+          output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+          return;
+        }
+
+        function success(position) {
+          var latitude  = position.coords.latitude;
+          var longitude = position.coords.longitude;
+
+          output.innerHTML = '<p>Latitude is ' + latitude + '&deg; <br>Longitude is ' + longitude + '&deg;</p>';
+
+          var img = new Image();
+          img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=15&size=480x480&markers=color:red|" + latitude + "," + longitude;
+          img.className = 'img img-thumbnail';
+
+          output.appendChild(img);
+        }
+
+        function error() {
+          output.innerHTML = "Unable to retrieve your location";
+        }
+
+        output.innerHTML = "<p>Locating…</p>";
+
+        navigator.geolocation.getCurrentPosition(success, error);
+      }
+      </script>
+      <p>This <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation">example</a> provided by <a href="https://developer.mozilla.org/">Mozilla Developer Network</a></p>
+    </div>
+  </body>
+</html>

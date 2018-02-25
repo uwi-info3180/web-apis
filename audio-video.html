@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML5 Audio/Video Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="page-header">HTML5 Audio/Video Demo</h1>
+
+      <h2><span class="glyphicon glyphicon-film"></span> Video</h2>
+      <!-- try adding autoplay, loop, mute attributes and see what happens -->
+      <video id="myVid" controls poster="images/sintel.jpg" width="480px">
+          <source src="assets/sintel_trailer-480p.mp4" type="video/mp4">
+          <source src="assets/sintel_trailer-480p.ogv" type="video/ogg">
+      </video>
+      <br >
+      <!-- Here are separate controls for the video player that are controlled by JavaScript instead of the native browser controls -->
+      <div class="controls btn-group">
+        <button id="playBtn" type="button" class="btn btn-success">Play <span class="glyphicon glyphicon-play"></span></button>
+        <button id="pauseBtn" type="button" class="btn btn-primary">Pause <span class="glyphicon glyphicon-pause"></span></button>
+        <button id="stopBtn" type="button" class="btn btn-danger">Stop/Reset <span class="glyphicon glyphicon-stop"></span></button>
+        <button id="volDownBtn" type="button" class="btn btn-default">Vol <span class="glyphicon glyphicon-volume-down"></span></button>
+        <button id="volUpBtn" type="button" class="btn btn-default">Volume <span class="glyphicon glyphicon-volume-up"></span></button>
+        <button id="slowDownBtn" type="button" class="btn btn-default">Speed <span class="glyphicon glyphicon-minus"></span></button>
+        <button id="speedUpBtn" type="button" class="btn btn-default">Speed <span class="glyphicon glyphicon-plus"></span></button>
+      </div>
+
+      <h2><span class="glyphicon glyphicon-music"></span> Audio</h2>
+      <audio controls src="assets/Blinded feat. Emma Carn.mp3"></audio>
+
+      <script>
+      var media = document.querySelector('#myVid');
+      var playBtn = document.querySelector('#playBtn');
+      var pauseBtn = document.querySelector('#pauseBtn');
+      var volUpBtn = document.querySelector('#volUpBtn');
+      var volDownBtn = document.querySelector('#volDownBtn');
+      var speedUpBtn = document.querySelector('#speedUpBtn');
+      var slowDownBtn = document.querySelector('#slowDownBtn');
+
+      // JavaScript api
+      // We can play the video/audio by using play()
+      playBtn.addEventListener('click', function() {
+        media.play();
+        // duration
+        console.log('This video is: ' + media.duration + ' seconds long.');
+      });
+
+      // pause()
+      pauseBtn.addEventListener('click', function() {
+        media.pause();
+        // currentTime
+        console.log('Current time when paused ' + media.currentTime + ' seconds.');
+      });
+
+      // reset
+      stopBtn.addEventListener('click', function() {
+        media.currentTime = 0;
+      });
+
+      // change the volume with volume e.g. video.volume = 0.2; highest is 1
+      volUpBtn.addEventListener('click', function() {
+        if (media.volume <= 1.0) {
+          media.volume += 0.1;
+        }
+        console.log(media.volume);
+      });
+      volDownBtn.addEventListener('click', function() {
+        if (media.volume >= 0) {
+          media.volume -= 0.1;
+        }
+        console.log(media.volume);
+      });
+
+      // change the playback rate with e.g. video.playbackRate = 0.5;
+      speedUpBtn.addEventListener('click', function() {
+        media.playbackRate = media.playbackRate + 0.2;
+        console.log(media.playbackRate);
+      });
+      slowDownBtn.addEventListener('click', function() {
+        media.playbackRate = media.playbackRate - 0.2;
+        console.log(media.playbackRate);
+      });
+      </script>
+    </div>
+  </body>
+</html>
