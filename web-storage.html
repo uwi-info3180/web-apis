@@ -12,35 +12,28 @@
         <h1 class="page-header">Web Storage Demo</h1>
         <p>The Web Storage API is broken up into two types of storage, <code>localStorage</code> and <code>sessionStorage</code>.</p>
         <p>To add an item to either type of storage, do the following in your Web Browsers developer tools console:</p>
-        <code>
-            <pre>
+        <pre><code>
 localStorage.name = 'John';
 sessionStorage.name = 'Mary';
-            </pre>
-        </code>
+        </code></pre>
         <p>Now if you look under the <strong>'Applications'</strong> tab in the Chrome developer tools or the <strong>'Storage'</strong> tab in the Firefox developer tools, you should see options for <code>localStorage</code> and <code>sessionStorage</code>. From here you can see the key/value pairs for each domain.</p>
         <p>Try retrieving these values by typing the following in the console:</p>
-        <code>
-            <pre>
+        <pre><code>
 localStorage.name;
 sessionStorage.name;
-            </pre>
-        </code>
+        </code></pre>
+        
         <p>You may also add items using the following syntax:</p>
-        <code>
-            <pre>
+        <pre><code>
 localStorage.setItem('name', 'John');
 sessionStorage.setItem('name', 'Mary');
-            </pre>
-        </code>
+        </code></pre>
 
         <p>You can Delete items by using:</p>
-        <code>
-            <pre>
+        <pre><code>
 localStorage.removeItem('name');
 sessionStorage.removeItem('name');
-            </pre>
-        </code>
+        </code></pre>
     </div>
 </body>
 </html>
