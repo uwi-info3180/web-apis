@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Geo Location Example</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   <style>
+     #mymap { height: 480px; }
+   </style>
   </head>
   <body>
     <div class="container">
@@ -17,6 +26,7 @@
         </div>
         <div class="panel-body">
           <div id="mylocation"></div>
+          <div id="mymap"></div>
         </div>
       </div>
 
@@ -34,12 +44,21 @@
           var longitude = position.coords.longitude;
 
           output.innerHTML = '<p>Latitude is ' + latitude + '&deg; <br>Longitude is ' + longitude + '&deg;</p>';
+          var mymap = L.map('mymap').setView([latitude, longitude], 18);
 
-          var img = new Image();
-          img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=15&size=480x480&markers=color:red|" + latitude + "," + longitude;
-          img.className = 'img img-thumbnail';
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+              maxZoom: 24,
+              minZoom:  13
+          }).addTo(mymap);
 
-          output.appendChild(img);
+          var marker = L.marker([latitude, longitude]).addTo(mymap);
+
+          // var img = new Image();
+          // img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=15&size=480x480&markers=color:red|" + latitude + "," + longitude + "&key=<apikey>";
+          // img.className = 'img img-thumbnail';
+
+          // output.appendChild(img);
         }
 
         function error() {
