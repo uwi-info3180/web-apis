@@ -31,7 +31,7 @@
       function highlight(ev) {
           ev.preventDefault();
           // ev.dataTransfer.effectAllowed = "move";
-          // ev.dataTransfer.dropEffect = 'copy'; // values are: move, copy, link or none
+          ev.dataTransfer.dropEffect = 'move'; // values are: move, copy, link or none
           document.querySelector('.dropzone').classList.add('highlight');
       }
 
@@ -41,13 +41,15 @@
       }
 
       function drag(ev) {
-          ev.dataTransfer.setData("text/plain", ev.target.id);
+          ev.dataTransfer.setData("text/plain", ev.target.id); // sets the type and gets the id of the item being dragged.
       }
 
       function drop(ev) {
-          ev.preventDefault();
-          var data = ev.dataTransfer.getData("text/plain");
+          ev.preventDefault(); // to prevent the browser default handling of the data (default is open as link on drop)
+
+          var data = ev.dataTransfer.getData("text/plain"); // will return any data that was set to the same type in the setData() method
           console.log(ev.dataTransfer);
+          console.log(data);
           ev.target.innerHTML = ""; // remove drop zone text
           ev.target.appendChild(document.getElementById(data));
       }
@@ -55,7 +57,7 @@
 
       <!-- Notice draggable is set to true -->
       <div class="col-md-6">
-        <div>
+        <div ondrop="drop(event)" ondragover="highlight(event)" ondragenter="highlight(event)" ondragleave="removeHighlight(event)">
           <p>Drag me to the dropzone.</p>
           <img id="drag1" src="images/sintel.jpg" draggable="true"
           ondragstart="drag(event)">
